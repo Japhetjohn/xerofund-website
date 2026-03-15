@@ -283,19 +283,6 @@
                 width: 100%;
             }
         }
-
-        .success-message {
-            display: none;
-            color: #00ff88;
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 
@@ -329,8 +316,6 @@
                         <button type="submit" id="submit-btn">Notify Me</button>
                     </div>
                 </form>
-                <p id="success-msg" class="success-message">Thanks! We will notify you when we launch.</p>
-                <p id="error-msg" class="success-message" style="color: #ffaa00;">Oops! Something went wrong. Please try again.</p>
 
                 <script>
                     document.getElementById('waitlist-form').addEventListener('submit', function(e) {
@@ -338,16 +323,8 @@
                         
                         const form = e.target;
                         const btn = document.getElementById('submit-btn');
-                        const successMsg = document.getElementById('success-msg');
-                        const errorMsg = document.getElementById('error-msg');
                         
-                        // Hide any existing messages
-                        successMsg.style.display = 'none';
-                        errorMsg.style.display = 'none';
-                        
-                        // Updating button state
-                        const originalBtnText = btn.innerText;
-                        btn.innerText = 'Sending...';
+                        // Disable button to prevent double submission
                         btn.disabled = true;
 
                         const formData = new FormData(form);
@@ -359,15 +336,14 @@
                         })
                         .then(() => {
                             // no-cors implies an opaque '0' status code response, we assume success
-                            successMsg.style.display = 'block';
+                            alert("Thanks! We will notify you when we launch.");
                             form.reset();
                         })
                         .catch(err => {
                             console.error('Submission error', err);
-                            errorMsg.style.display = 'block';
+                            alert("Oops! Something went wrong. Please try again.");
                         })
                         .finally(() => {
-                            btn.innerText = originalBtnText;
                             btn.disabled = false;
                         });
                     });
