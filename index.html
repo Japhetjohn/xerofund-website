@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XeroFund</title>
-    <!-- Favicon -->
+    <title>XeroFund - Coming Soon</title>
     <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,21 +15,314 @@
         }
 
         body {
-            background-color: #000;
-            /* Allow scrolling by removing 100vh and overflow hidden restrictions */
-            width: 100%;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        .main-image {
-            width: 100%; /* Make image take full width of container */
-            height: auto; /* Maintain aspect ratio */
-            display: block; /* Remove bottom space inside container */
+        /* Animated gradient background */
+        .bg-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 200, 100, 0.05) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+
+        .content {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 50%, #00994d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .notify-section {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        input[type="email"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            border: none;
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .social-links {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .social-links a:hover {
+            background: #00ff88;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 10s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1.5);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Use img tag instead of background for natural scaling and scrolling -->
-    <img src="xerofund.jpeg" alt="XeroFund" class="main-image">
+    <div class="bg-gradient"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="content">
+            <h1>XeroFund</h1>
+            <p class="subtitle">Coming Soon</p>
+
+            <p class="description">
+                Join our exclusive waitlist to secure early access and stay updated on our upcoming launch!
+            </p>
+
+            <div class="notify-section">
+                <!-- IMPORTANT: To make this work with Google Forms:
+                     1. Create a Google Form with one "Short answer" question for Email
+                     2. Get the form action URL from the "Preview" page's page source (look for <form action="...")
+                     3. Replace YOUR_GOOGLE_FORM_URL below with that action URL
+                     4. Get the "entry.XXXXXX" name for the email input from the page source
+                     5. Replace YOUR_ENTRY_ID below with that entry name
+                     6. Add target="hidden_iframe" to submit without leaving the page -->
+                <script>
+                    let submitted = false;
+                    function showSuccessMessage() {
+                        if (submitted) {
+                            alert("Thanks! We'll notify you when we launch.");
+                            document.getElementById("waitlist-form").reset();
+                        }
+                    }
+                </script>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="showSuccessMessage()"></iframe>
+                
+                <form id="waitlist-form" action="https://docs.google.com/forms/u/0/d/11F4Ne4A90__Gehj0-_wWTsNGTvYK3S3GFOH4yu3gHuI/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                    <div class="input-group">
+                        <input type="email" name="entry.1788448718" placeholder="Enter your email" required>
+                        <button type="submit">Notify Me</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="social-links">
+                <a href="https://x.com/XeroFund" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
 </body>
+
 </html>
